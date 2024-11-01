@@ -1,0 +1,399 @@
+body {
+    background-color: #ffffff;
+    margin: 0;
+    font-family: "Roboto", sans-serif;
+    margin-top: 70px;
+}
+
+
+.row{
+    display: flex;
+}
+
+.items-right{
+    justify-content: flex-end;
+}
+
+.between {
+    justify-content: space-between;
+}
+
+.top-static-nav-menu{
+    align-items:center;
+    justify-content:space-evenly;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    position: fixed;
+    top:0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    background: linear-gradient(to right, #ed3cca,  #7c0bec);
+    height: 60px;
+}
+
+.menu-but{
+    background-color: #d431d1;
+    background-image: url(https://img.icons8.com/?size=100&id=120374&format=png&color=FFFFFF);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 60% 60%;
+    border-color: hsla(0, 0%, 100%, 0.6);
+    width:50px;
+    height: 50px;
+}
+
+.menu-but:hover{
+    border-color: #ffffff;
+}
+
+
+.search input{
+    width: 700px;
+    height: 50px;
+    border-color: #ffffff;
+    padding-left: 15px;
+}
+
+.search:active{
+    border: none;
+}
+
+.menu-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.logo-menu{
+    width: 20px;
+}
+
+
+.menu-list-item {
+    display: flex;                  
+    flex-direction: column;        
+    align-items: center;           
+    padding-left: 5px;    
+    padding-right: 5px;     
+}
+
+.menu-list-item img {
+    display: block;           
+}
+
+.menu-list-item a {
+    color: hsla(0, 0%, 100%, .6);
+    text-decoration: none;
+    display: block;
+}
+
+.menu-list-item:hover a{
+    color: #ffffff;
+}
+
+.advertisement{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.advertisement-item{
+    padding: 5px 20px;
+}
+
+.advertisement-item img{
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+}
+
+.rounding{
+    border-radius: 10px;
+}
+
+.product-cards{
+    flex-wrap: wrap;
+    row-gap: 20px;
+}
+
+.card a{
+    text-decoration: none;
+}
+
+.card{
+    box-sizing: border-box;
+    width: 20%;
+    padding: 5px;
+}
+.card img{
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    border-radius: 10px;
+}
+
+.card button{
+    width: 100%;
+    background: #a73afd;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+    border:none;
+    color: #ffffff;
+    align-items: center;  
+    justify-content: center;
+}
+
+.info-card button img{
+    width: 18px;
+    padding-right: 5px;
+}
+
+.info-card button:hover{
+    background: #a83afdb0;
+}
+
+.score{      
+    align-items: center;  
+}
+
+.score img{
+    width: 15px;
+    padding-right: 5px;
+}
+
+.card:hover{
+    cursor: pointer;
+}
+
+button{
+    cursor: pointer;
+}
+
+.info-card-text{
+    padding: 5px;
+}
+
+.prace{
+    color: #a73afd;
+    font-weight: 900;
+    font-size: 17px;
+}
+
+main{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 15px;
+}
+
+.footer-link{
+    width: 40px;
+}
+
+.text-and-links-social-networks{
+    padding-top: 20px;
+}
+
+.footer-qr img{
+    width: 150px;
+}
+
+footer .menu-list{
+    width: 150px;
+}
+
+.footer-text {
+    color: #868695;
+}
+
+.footer-text a{
+    text-decoration: underline;
+    
+}
+
+.footer-text a:hover{
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.footer-menu-list-item:hover{
+    cursor: pointer;
+    transform: scale(1.15);
+    transition: transform 0.3s;
+}
+
+
+.registration{
+    background-color: #f6f6f9;
+}
+
+.form-item input{
+    width: 100%;
+}
+
+.login-form{
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #ffffff;
+    padding: 20px;
+}
+
+.login-form button{
+    background-color: #7c0bec;
+    width: 100%;
+    padding: 10px;
+    color: #ffffff;
+    border: none;
+}
+
+footer{
+    background-color: #cccccc;
+    padding: 20px;
+}
+
+
+
+.login-form {
+    width: 350px;
+    background-color: #cf39c5;
+    padding: 25px;
+    margin-top: 120px;
+    margin-bottom: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+}
+
+.login-form h1 {
+    text-align: center;
+    color: #ffffff;
+}
+
+.form-item {
+    margin-bottom: 10px;
+}
+
+.form-item input {
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    border: 1px solid #aaa;
+}
+
+.btn-login {
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.sign-in div{
+    color :#ffffff;
+    display: inline;
+}
+
+.sign-in a:active{
+    color :#ffffff;
+}
+
+.product-card{
+    margin-top: 80px;
+    padding: 20px;
+}
+
+.product-card-info-photo img{
+    border-radius: 5%;
+    height: 500px;
+}
+
+.product-card-info-text-name{
+    font-weight: 900;
+    font-size: 25px;
+}
+
+.go-back img{
+    width: 30px;
+    padding-left: 5px;
+    padding-bottom: 10px;
+}
+
+.go-back img:hover{
+    transform: scale(1.15);
+    transition: transform 0.3s;
+}
+
+.product-card-info-text{
+    padding-left: 30px;
+}
+
+.product-card-info-text-item{
+    padding-bottom: 10px;
+}
+
+.product-card-info-text-item button{
+    width: 100%;
+    background: #a73afd;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 15px;
+    border:none;
+    color: #ffffff;
+    font-size: 15px;
+}
+
+.table-characteristic td{
+    height: 30px; 
+    vertical-align: top;
+}
+
+@media screen and (max-width: 1200px){
+    .card {
+        width: 50%;
+    }
+
+    .logo {
+        display: none;
+    }
+
+    .discounts-with-wallet{
+        display: none;
+    }
+
+    .product-card-info{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+@media screen and (max-width: 600px){
+    .card {
+        width: 100%;
+    }
+
+    .side-menu-but {
+        display: none;
+    }
+
+    .footer-qr{
+        justify-content: center;
+    }
+
+    .footer-text{
+        padding-bottom: 20px;
+    }
+
+    .text-and-links-social-networks{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+}
+
+
+
+
+
+

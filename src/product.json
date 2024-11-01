@@ -1,0 +1,44 @@
+[
+    {
+      "id": 1,
+      "name": "Hoco",
+      "price": "564p",
+      "rating": 4.8,
+      "image": "https://basket-10.wbbasket.ru/vol1442/part144299/144299547/images/big/1.webp"
+    },
+    {
+      "id": 2,
+      "name": "Apple AirPods",
+      "price": "8999p",
+      "rating": 4.7,
+      "image": "https://basket-10.wbbasket.ru/vol1442/part144299/144299547/images/big/1.webp"
+    },
+    {
+      "id": 3,
+      "name": "Samsung Galaxy Buds",
+      "price": "4999p",
+      "rating": 4.5,
+      "image": "https://basket-10.wbbasket.ru/vol1442/part144299/144299547/images/big/1.webp"
+    },
+    {
+      "id": 4,
+      "name": "Sony WH-1000XM4",
+      "price": "24999p",
+      "rating": 4.9,
+      "image": "https://basket-10.wbbasket.ru/vol1442/part144299/144299547/images/big/1.webp"
+    },
+    {
+        "id": 5,
+        "name": "Hoco",
+        "price": "564p",
+        "rating": 4.8,
+        "image": "https://basket-10.wbbasket.ru/vol1442/part144299/144299547/images/big/1.webp"
+      },
+      {
+        "id": 6,
+        "name": "Hoco",
+        "price": "564p",
+        "rating": 4.8,
+        "image": "https://basket-10.wbbasket.ru/vol1442/part144299/144299547/images/big/1.webp"
+      }
+  ]
