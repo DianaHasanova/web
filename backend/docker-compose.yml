@@ -1,0 +1,44 @@
+services:
+  app:
+    image: web
+    container_name: backend-app
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ./app:/var/www/my-laravel-project
+      - ./php/php.ini:/usr/local/etc/php/php.ini
+    ports:
+      - "9000:9000"
+   
+
+  webserver:
+    image: nginx:alpine
+    container_name: backend-webserver
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./app:/var/www/my-laravel-project
+      - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+  
+
+  db:
+    image: mysql:8
+    container_name: backend-db
+    ports:
+      - "3306:3306" 
+    environment:
+      MYSQL_ROOT_PASSWORD: 'superpass321!'
+      MYSQL_DATABASE: 'web'
+      MYSQL_USER: 'web'
+      MYSQL_PASSWORD: 'pass321!'
+    volumes:
+      - dbdata:/var/lib/mysql
+  
+
+volumes:
+  dbdata:
+    driver: local
+  dbdata1:
+    driver: local
