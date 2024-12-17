@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import AdvertisingSlide from "./AdvertisingSlide";
-import products from '../product.json'; 
+//import products from '../product.json'; 
 import ProductCardMenu from './ProductCardMenu'; 
+import api from '../api';
+
 
 function Home() {
+    
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+      api.get('/catalog')
+        .then(response => setProducts(response.data))
+        .catch(error => console.error('Ошибка:', error));
+    }, []);
+    
     return (
         <>
             <AdvertisingSlide />
@@ -19,3 +30,4 @@ function Home() {
 }
 
 export default Home;
+

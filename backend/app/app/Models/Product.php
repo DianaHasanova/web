@@ -16,7 +16,7 @@ class Product extends Model
      */
     protected $table = 'product';
 
-    protected $fillable = ['name', 'image', 'price', 'seller_id'];
+    protected $fillable = ['name', 'image', 'price', 'seller_id', 'rating'];
 
     public function seller()
     {
@@ -33,6 +33,7 @@ class Product extends Model
         return $this->hasMany(Review::class);
     }
 
+    /** потом рейтинг переделать с использованием этой функции при добавлении отзывов */
     public function getRatingAttribute()
     {
         $averageRating = $this->reviews()->avg('rating');

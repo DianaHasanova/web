@@ -1,15 +1,20 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import products from '../product.json'; 
+//import products from '../product.json'; 
+import { useState, useEffect } from 'react';
+import api from '../api';
 
 function ProductInformation() {
+
     const { id } = useParams(); 
-    const product = products.find(item => item.id === parseInt(id)); 
+    const [product, setProducts] = useState({});
 
-    if (!product) {
-        return <div>Продукт не найден</div>; 
-    }
-
+    useEffect(() => {
+      api.get('/catalog/' + id)
+        .then(response => setProducts(response.data))
+        .catch(error => console.error('Ошибка:', error));
+    }, []);
+    
 
     return (
         <main className="product-card">
