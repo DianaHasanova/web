@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import AdvertisingSlide from "./AdvertisingSlide";
+//import AdvertisingSlide from "./AdvertisingSlide";
 //import products from '../product.json'; 
 import ProductCardMenu from './ProductCardMenu'; 
 import api from '../api';
@@ -17,7 +17,6 @@ function Home() {
     
     return (
         <>
-            <AdvertisingSlide />
             <main>
                 <div className="product-cards row">
                     {products.map(product => (

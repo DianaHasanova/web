@@ -30,7 +30,7 @@ function Cart() {
     
     return (
         <>
-            <main className='advertisement'>
+            <main className=''>
                 <div className='cart-title'> Корзина </div>
                 <div className="product-cards row">
                     {cartItems.map(cartItem => (

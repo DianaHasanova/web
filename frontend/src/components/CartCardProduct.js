@@ -66,7 +66,7 @@ function CartCardProduct({ cartItem, onAddItem, onRemoveItem }) {
                     </div>
                     <div className='card-cart-item'>
                         <div className=' '>
-                              {cartItem.product.price} P
+                              {cartItem.product.price*cartItem.quantity} P
                         </div>
                         
                     </div>

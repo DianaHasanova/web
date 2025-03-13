@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 function ProductCardMenu({ product }) {
     return (
         <div className="card">
-            <Link to={`/product/${product.id}`}>
+            <Link to={`/product/${product.id}`} className='column product-container'>
                 <div className="img-container">
                     <img src={product.image} alt={`фото товара ${product.name}`} />
                 </div>
@@ -24,6 +24,7 @@ function ProductCardMenu({ product }) {
                         </button>
                     </div>
                 </div>
+
             </Link>
         </div>
     );

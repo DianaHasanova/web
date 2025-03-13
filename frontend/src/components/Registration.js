@@ -7,6 +7,7 @@ function Registration(){
   const [name, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState(''); 
+  const [isRegistered, setIsRegistered] = useState(false); // new
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -34,6 +35,7 @@ function Registration(){
   };
 
     return(
+      <div className='register'>
         <section className="login-form">
             <h1>Регистрация</h1>
             <br/>
@@ -63,6 +65,7 @@ function Registration(){
                 </div>
             </form>
     </section>
+    </div>
     )
 }
 

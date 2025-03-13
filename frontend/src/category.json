@@ -1,0 +1,32 @@
+[
+    {
+      "id": 1,
+      "name": "Платья",
+      "image": "https://img.icons8.com/?size=100&id=q342qmWHQczn&format=png&color=b8494d"
+    },
+    {
+      "id": 2,
+      "name": "Блузки",
+      "image": "https://img.icons8.com/?size=100&id=q342qmWHQczn&format=png&color=b8494d"
+    },
+    {
+      "id": 3,
+      "name": "Кардеганы",
+      "image": "https://img.icons8.com/?size=100&id=q342qmWHQczn&format=png&color=b8494d"
+    },
+    {
+      "id": 4,
+      "name": "Юбки",
+      "image": "https://img.icons8.com/?size=100&id=q342qmWHQczn&format=png&color=b8494d"
+    },
+    {
+        "id": 5,
+        "name": "Футболки",
+      "image": "https://img.icons8.com/?size=100&id=q342qmWHQczn&format=png&color=b8494d"
+      },
+      {
+        "id": 6,
+        "name": "Шорты",
+      "image": "https://img.icons8.com/?size=100&id=q342qmWHQczn&format=png&color=b8494d"
+      }
+  ]
