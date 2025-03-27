@@ -334,12 +334,14 @@ main{
     display: inline;
 }
 
-.sign-in a:active{
+.sign-in span:active{
     color :#ffffff;
 }
 
-.sign-in > a{
+.sign-in > span{
     color: var(--secondary-color);
+    text-decoration:underline;
+    cursor: pointer;
 }
 
 .product-card{

@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class Customer extends Model
+
+class Customer extends Model implements JWTSubject
 {
     use HasFactory;
 
@@ -25,5 +27,15 @@ class Customer extends Model
     public function cartItems()
     {
         return $this->hasMany(Cart::class);
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

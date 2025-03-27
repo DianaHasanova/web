@@ -10,11 +10,17 @@ function Cart() {
 
     const { id } = useParams(); 
     const [cartItems, setProducts] = useState([]);
+    const token = localStorage.getItem('token');
 
     useEffect(() => {
-      api.get('/cart/'+id)
-        .then(response => setProducts(response.data))
-        .catch(error => console.error('Ошибка:', error));
+        const headers = {};
+        if (token) {
+            headers.Authorization = `Bearer ${token}`;
+        }
+
+        api.get('/cart/', { headers })
+            .then(response => setProducts(response.data))
+            .catch(error => {console.error('Ошибка:', error); console.log('Ошибка:', error)});
     }, []);
 
     const handleRemoveItem = (itemId) => {

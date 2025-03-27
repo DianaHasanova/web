@@ -23,11 +23,15 @@ Route::prefix('catalog')->group(function () {
 
 
 Route::prefix('cart')->group(function () {
-Route::get('{id}',[App\Http\Controllers\CartController::class,'showCart']);
+Route::get('', [App\Http\Controllers\CartController::class, 'showCart']);
+//Route::get('{id}',[App\Http\Controllers\CartController::class,'showCart']);
 Route::delete('removal/{id}',[App\Http\Controllers\CartController::class,'removal']);
 Route::put('increase/{id}',[App\Http\Controllers\CartController::class,'increase']);
 Route::put('subtract/{id}',[App\Http\Controllers\CartController::class,'subtract']);
 });
 
 
-Route::post('/customer/register', [App\Http\Controllers\CustomerController::class, 'register']);
+Route::prefix('customer')->group(function () {
+Route::post('register', [App\Http\Controllers\CustomerController::class, 'register']);
+Route::post('login', [App\Http\Controllers\CustomerController::class, 'login']);
+});

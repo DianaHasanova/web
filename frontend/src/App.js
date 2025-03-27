@@ -11,6 +11,8 @@ import NotFound from './components/NotFound';
 
 function App() {
   return (
+    
+
     <Router>
       <Routes>
         <Route path="/" element={<Layout />}> 
@@ -18,11 +20,13 @@ function App() {
           <Route path='/registration' element={<Registration />} />
           <Route path="/product/:id" element={<ProductInformation />} />
           <Route path="/catalog/:slug" element={<CatalogPage />} />
-          <Route path="/cart/:id" element={<Cart />} /> 
+          <Route path="/cart" element={<Cart />} /> 
         </Route>
         <Route path="*" element={<NotFound />} /> 
       </Routes>
     </Router>
+
+    
   );
 }
 
