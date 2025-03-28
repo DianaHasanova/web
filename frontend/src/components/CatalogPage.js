@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../api';
+import ProductCardMenu from "./ProductCardMenu";
 
 function CatalogPage() {
     const { slug } = useParams(); // Получаем slug из URL
-    const [products, setProducts] = useState([]); // Состояние для хранения товаров
+    const [сategoryData, setCategoryData] = useState([]); // Состояние для хранения товаров
     const [loading, setLoading] = useState(true); // Флаг загрузки
 
     useEffect(() => {
         api.get(`/catalog/by-category/${slug}`) // Запрос товаров по slug
             .then(response => {
-                setProducts(response.data); // Сохраняем товары в state
+                setCategoryData(response.data); // Сохраняем товары в state
                 setLoading(false); // Отключаем загрузку
             })
             .catch(error => {
@@ -25,20 +26,21 @@ function CatalogPage() {
 
     return (
         <div className="catalog">
-            <h2>Товары категории</h2>
-            {products.length === 0 ? ( 
-                <p>Нет товаров в этой категории</p> // Если товаров нет — сообщение
+            <main>
+            <h2>Товары категории: {сategoryData.categoryName}</h2>
+            {сategoryData.products.length === 0 ? ( 
+                <p>Нет товаров в этой категории</p> 
             ) : (
-                <div className="product-list">
-                    {products.map(product => (
-                        <div key={product.id} className="product-item">
-                            <img src={product.image} alt={product.name} />
-                            <h3>{product.name}</h3>
-                            <p>{product.price} ₽</p>
-                        </div>
-                    ))}
-                </div>
+                <>
+                включить персонализированный поиск // сделать кнопку
+                    <div className="product-cards row">
+                        {сategoryData.products.map(product => (
+                            <ProductCardMenu key={product.id} product={product} /> 
+                        ))}
+                    </div>
+                </>
             )}
+            </main>
         </div>
     );
 }

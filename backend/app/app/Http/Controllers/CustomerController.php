@@ -22,10 +22,10 @@ public function register(Request $request)
 
         $customer = Customer::create([
             'email' => $request->email,
-            'password' => Hash::make($request->password), // Хэширование пароля
+            'password' => Hash::make($request->password),
         ]);
 
-        // Генерация JWT-токена для нового пользователя
+        // Генерация JWT-токена
         $token = JWTAuth::fromUser($customer);
 
         return response()->json(['token' => $token, 'message' => 'Пользователь успешно зарегистрирован'], 201);
@@ -52,25 +52,29 @@ public function login(Request $request)
         return response()->json(['error' => 'Could not create token'], 500);
     }
     return response()->json(['token' => $token]);
-    /*
-    $request->validate([
-        'email' => 'required|email',
-        'password' => 'required|min:6',
-    ]);
-
-    $credentials = $request->only('email', 'password');
-
-    try {
-        $token = JWTAuth::parseToken()->attempt($credentials, ['provider' => 'user']);
-        if (!$token) {
-            return response()->json(['error' => 'Invalid credentials'], 401);
-        }
-    } catch (JWTException $e) {
-        return response()->json(['error' => 'Could not create token'], 500);
-    }
-
-    return response()->json(['token' => $token]); */
 }
 
+public function showProfile(Request $request)
+{
+$token = $request->header('Authorization');
+            $token = str_replace('Bearer ', '', $token);
+
+            if (!JWTAuth::parseToken()->check()) {
+                return response()->json(['error' => 'Не авторизован'], 401);
+            }
+
+            $userId = JWTAuth::parseToken()->getPayload()->get('sub');
+            $user = Customer::find($userId);
+
+            if (!$user) {
+                return response()->json(['error' => 'Пользователь не найден'], 404);
+            }
+
+            return response()->json([
+                'name' => $user->name,
+                'email' => $user->email,
+                // ... другие поля пользователя ...
+            ]);
+}
 
 }

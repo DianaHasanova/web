@@ -32,6 +32,11 @@ class ProductController extends Controller
             $query->where('category_id', $categoryId);
         })->get();
 
-        return response()->json($products);
+        $categoryName = Category::find($categoryId)->name;
+
+        return response()->json([
+            'categoryName' => $categoryName,
+            'products' => $products->toArray(),
+        ]);
     }
 }

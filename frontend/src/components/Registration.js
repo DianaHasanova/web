@@ -28,12 +28,8 @@ function Registration(){
         localStorage.setItem('token', response.data.token);
 
         navigate('/'); // Переход на страницу входа
-      } else {
-        console.error("Ошибка:", response.status, response.data);
-        alert('Ошибка '+ response.data.error);
-      }
+      } 
     }  catch (error) {
-      // Ошибка сети или сервера (4xx, 5xx)
       if (error.response) {
         // Сервер ответил, но с ошибкой (например, 401)
         console.error("Ошибка сервера:", error.response.data);

@@ -14,12 +14,12 @@ Route::prefix('catalog')->group(function () {
 });
 
 //Route::get('products/by-category/{slug}', [\App\Http\Controllers\ProductController::class, 'getProductsByCategory']);
-
+/*
 Route::prefix('catalog')->group(function () {
     Route::get('', [\App\Http\Controllers\ProductController::class, 'index']);
     Route::get('{id}', [\App\Http\Controllers\ProductController::class, 'info']);
 });
-
+*/
 
 
 Route::prefix('cart')->group(function () {
@@ -34,4 +34,5 @@ Route::put('subtract/{id}',[App\Http\Controllers\CartController::class,'subtract
 Route::prefix('customer')->group(function () {
 Route::post('register', [App\Http\Controllers\CustomerController::class, 'register']);
 Route::post('login', [App\Http\Controllers\CustomerController::class, 'login']);
+Route::get('showProfile', [App\Http\Controllers\CustomerController::class, 'showProfile']);
 });
