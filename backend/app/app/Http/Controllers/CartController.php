@@ -88,5 +88,27 @@ class CartController extends Controller
             }
     }
 
+    public function addToCart(Request $request, $productId)
+    {
+        $token = $request->header('Authorization');
+        $token = str_replace('Bearer ', '', $token);
+
+        $userId = JWTAuth::parseToken()->getPayload()->get('sub');
+        $cartEntry = Cart::where('user_id', $userId)->where('product_id', $productId)->first();
+
+        if ($cartEntry) {
+            $cartEntry->quantity++;
+            $cartEntry->save();
+        } else {
+            Cart::create([
+                'user_id' => $userId,
+                'product_id' => $productId,
+                'quantity' => 1,
+            ]);
+        }
+
+        return response()->json(['message' => 'Товар добавлен в корзину'], 201);
+    }
+
 }
 

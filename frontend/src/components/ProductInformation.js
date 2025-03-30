@@ -14,6 +14,33 @@ function ProductInformation() {
         .then(response => setProducts(response.data))
         .catch(error => console.error('Ошибка:', error));
     }, []);
+
+    const token = localStorage.getItem('token');
+
+    const handleAddToCart = async () => {
+        if (!token) {
+            alert('Авторизуйтесь, чтобы добавить товар в корзину'); 
+        } else{ // убрать это else и сделать, чтобы корзина с неавторизованным пользователем работала через localStore
+
+        try {
+            const headers = {
+                Authorization: `Bearer ${token}`,
+            };
+
+            const response = await api.post(`/cart/add/${product.id}`, {}, { headers }); 
+
+            if (response.status === 200 || response.status === 201) {
+                alert('Товар добавлен в корзину!');
+            } else {
+                console.error('Ошибка добавления товара в корзину:', response);
+                alert('Ошибка добавления товара в корзину. Попробуйте позже.');
+            }
+        } catch (error) {
+            console.error('Ошибка добавления товара в корзину:', error);
+            alert('Ошибка добавления товара в корзину. Попробуйте позже.');
+        }
+    }
+    };
     
 
     return (
@@ -70,7 +97,7 @@ function ProductInformation() {
                             </table>
                         </div>
                         <div className="info-card-button product-card-info-text-item">
-                            <button className = "">
+                            <button className = "" onClick={handleAddToCart}>
                                 <div> Добавить в корзину </div>
                             </button>
                         </div>

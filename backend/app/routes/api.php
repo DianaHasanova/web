@@ -28,6 +28,7 @@ Route::get('', [App\Http\Controllers\CartController::class, 'showCart']);
 Route::delete('removal/{id}',[App\Http\Controllers\CartController::class,'removal']);
 Route::put('increase/{id}',[App\Http\Controllers\CartController::class,'increase']);
 Route::put('subtract/{id}',[App\Http\Controllers\CartController::class,'subtract']);
+Route::post('add/{product_id}', [App\Http\Controllers\CartController::class, 'addToCart']);
 });
 
 

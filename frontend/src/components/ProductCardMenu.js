@@ -1,10 +1,48 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import api from '../api';
+import { useNavigate } from 'react-router-dom';
 
 function ProductCardMenu({ product }) {
+    const token = localStorage.getItem('token');
+
+    const handleAddToCart = async () => {
+        if (!token) {
+            alert('Авторизуйтесь, чтобы добавить товар в корзину'); 
+        } else{ // убрать это else и сделать, чтобы корзина с неавторизованным пользователем работала через localStore
+
+        try {
+            const headers = {
+                Authorization: `Bearer ${token}`,
+            };
+
+            const response = await api.post(`/cart/add/${product.id}`, {}, { headers }); 
+
+            if (response.status === 200 || response.status === 201) {
+                alert('Товар добавлен в корзину!');
+            } else {
+                console.error('Ошибка добавления товара в корзину:', response);
+                alert('Ошибка добавления товара в корзину. Попробуйте позже.');
+            }
+        } catch (error) {
+            console.error('Ошибка добавления товара в корзину:', error);
+            alert('Ошибка добавления товара в корзину. Попробуйте позже.');
+        }
+    }
+    };
+
+    
+    const navigate = useNavigate();
+    
+    const handleClick = (event) => {
+        if (!event.target.closest('.info-card-button')) {
+                navigate(`/product/${product.id}`);
+            }
+    };
+
     return (
-        <div className="card">
-            <Link to={`/product/${product.id}`} className='column product-container'>
+        <div className="card" onClick={handleClick}>
+            <div to={`/product/${product.id}`} className='column product-container'>
                 <div className="img-container">
                     <img src={product.image} alt={`фото товара ${product.name}`} />
                 </div>
@@ -18,14 +56,13 @@ function ProductCardMenu({ product }) {
                         </div>
                     </div>
                     <div className="info-card-button">
-                        <button className="row">
-                            <img className="logo-menu" src="https://img.icons8.com/?size=100&id=59997&format=png&color=FFFFFF" alt="Купить" />
+                        <button className="row" onClick={handleAddToCart}>
+                            <img className="logo-menu" src="https://img.icons8.com/?size=100&id=59997&format=png&color=FFFFFF" alt="Корзина" />
                             <div> Купить </div>
                         </button>
                     </div>
                 </div>
-
-            </Link>
+            </div>
         </div>
     );
 }
