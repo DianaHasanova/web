@@ -23,6 +23,7 @@ public function register(Request $request)
         $customer = Customer::create([
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'image' => 'https://img.icons8.com/?size=100&id=85356&format=png&color=FFFFFF',
         ]);
 
         // Генерация JWT-токена
@@ -73,6 +74,7 @@ $token = $request->header('Authorization');
             return response()->json([
                 'name' => $user->name,
                 'email' => $user->email,
+                'image' => $user->image,
                 // ... другие поля пользователя ...
             ]);
 }

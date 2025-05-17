@@ -37,3 +37,10 @@ Route::post('register', [App\Http\Controllers\CustomerController::class, 'regist
 Route::post('login', [App\Http\Controllers\CustomerController::class, 'login']);
 Route::get('showProfile', [App\Http\Controllers\CustomerController::class, 'showProfile']);
 });
+
+
+
+Route::prefix('admin')->group(function () {
+    Route::post('/add-product', [App\Http\Controllers\ProductController::class, 'addProduct']);
+    Route::post('/upload-image', [App\Http\Controllers\ProductController::class, 'uploadImageProduct']);
+});

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 
+use Illuminate\Support\Facades\Storage;
+
 class ProductController extends Controller
 {
     public function index()
@@ -39,4 +41,43 @@ class ProductController extends Controller
             'products' => $products->toArray(),
         ]);
     }
+
+     // Метод для загрузки фото
+     public function uploadImageProduct(Request $request)
+    {
+        $data = $request->validate([
+            'image' => 'required|image|max:5120', // максимум 5 МБ
+        ]);
+
+        $path = $request->file('image')->store('images', 'public');
+
+        // Явно задаём базовый адрес вашего бэкенда с портом
+        $baseUrl = 'http://localhost:8000';
+
+        // Формируем полный URL к файлу
+        $fullUrl = $baseUrl . Storage::url($path);
+
+        return response()->json(['url' => $fullUrl], 201);
+    }
+
+
+     // Метод для создания нового товара
+     public function addProduct(Request $request)
+     {
+         $data = $request->validate([
+             'name' => 'required|string|max:255',
+             'price' => 'required|numeric|min:0',
+             'image' => 'required|string|max:2048', // путь к фото 'color' => ['required', 'regex:/^#[0-9A-Fa-f]{6}$/'], // HEX цвет
+         ]);
+
+         $product = Product::create([
+             'name' => $data['name'],
+             'image' => $data['image'],
+             'price' => $data['price'], //'color' => $data['color'],
+             'rating' => 0,
+             'seller_id' => 0,
+         ]);
+
+         return response()->json(['product' => $product], 201);
+     }
 }

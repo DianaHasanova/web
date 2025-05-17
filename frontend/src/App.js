@@ -9,6 +9,7 @@ import ProductInformation from './components/ProductInformation';
 import Cart from './components/Cart';
 import CatalogPage from './components/CatalogPage';
 import NotFound from './components/NotFound'; 
+import AddAdminsProduct from './components/AddAdminsProduct';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/product/:id" element={<ProductInformation />} />
           <Route path="/catalog/:slug" element={<CatalogPage />} />
           <Route path="/cart" element={<Cart />} /> 
+          <Route path='/heart' element={<AddAdminsProduct/>} />
         </Route>
         <Route path="*" element={<NotFound />} /> 
       </Routes>

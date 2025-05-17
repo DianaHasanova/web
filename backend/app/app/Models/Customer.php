@@ -17,7 +17,7 @@ class Customer extends Model implements JWTSubject
      * @var string
      */
     protected $table = 'user';
-    protected $fillable = ['name', 'email', 'password', 'role'];
+    protected $fillable = ['name', 'email', 'password', 'image','role'];
 
     public function reviews()
     {

@@ -14,14 +14,14 @@ function Header(){
                 <div className='row header-item'>
                     <button className='row center header-icon-menu' onClick={() => {setModalOpen(true)}}> 
                         <img className="header-menu-img" style={{paddingRight:'5px', height: '14px'}} src="https://img.icons8.com/?size=100&id=120374&format=png&color=AAAAAA"/>
-                        <div className="header-menu-text">Меню</div>
+                        <div className="header-menu-text " style={{ color: '#b8494d' }}>Меню</div>
                     </button>
                     <input className="header-search" type="text" placeholder="Поиск товаров"/>
                 </div>
 
                 <div className='column center header-item-logo'>
                     <img src={logo} className='header-logo' alt="Логотип магазина"/>
-                    <div>Line & Form</div>
+                    <div style={{ color: '#b8494d' }}>Line & Form</div>
                 </div>
 
                 <nav className="menu header-item">
@@ -32,7 +32,7 @@ function Header(){
                             </Link>
                         </li>
                         <li className="menu-list-item ">
-                            <Link to="/address">
+                            <Link to="/heart">
                                 <img className="header-menu-img" src="https://img.icons8.com/?size=100&id=16076&format=png&color=FFFFFF"/>
                             </Link>
                         </li>

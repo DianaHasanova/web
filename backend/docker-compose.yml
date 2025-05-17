@@ -8,6 +8,7 @@ services:
     volumes:
       - ./app:/var/www/my-laravel-project
       - ./php/php.ini:/usr/local/etc/php/php.ini
+      - imagesdata:/var/www/my-laravel-project/storage/app/public/images
     ports:
       - "9000:9000"
    
@@ -41,4 +42,6 @@ volumes:
   dbdata:
     driver: local
   dbdata1:
+    driver: local
+  imagesdata:
     driver: local
