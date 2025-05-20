@@ -8,6 +8,7 @@ function ProductInformation() {
 
     const { id } = useParams(); 
     const [product, setProducts] = useState({});
+    const [selectedSize, setSelectedSize] = useState('');
 
     useEffect(() => {
       api.get('/catalog/' + id)
@@ -42,9 +43,73 @@ function ProductInformation() {
     }
     };
     
+    const sizes = product.sizes || ['40', '42', '44', '46', '48'];
 
     return (
-        <main className="product-card">
+        <main className="product-main">
+      <Link to="/catalog" className="back-link">
+        ← Вернуться в каталог
+      </Link>
+
+      <div className="product-container">
+        <div className="product-image">
+          <img
+            src={product.image || 'https://via.placeholder.com/400x500?text=Нет+изображения'}
+            alt={product.name}
+          />
+        </div>
+
+        <div className="product-info">
+          <h1 className="product-name">{product.name}</h1>
+
+          <div className="size-table-label">Таблица размеров</div>
+
+          <div className="size-selector">
+            <label htmlFor="size-select" className="size-label">Размер:</label>
+            <select
+              id="size-select"
+              value={selectedSize}
+              onChange={e => setSelectedSize(e.target.value)}
+              className="size-select"
+            >
+              <option value="">Выберите размер</option>
+              {sizes.map(size => (
+                <option key={size} value={size}>
+                  {size}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <p className="product-price">
+            Цена: {product.price ? `${product.price} ₽` : 'Цена не указана'}
+          </p>
+
+          {product.colorType && (
+            <p className="product-colortype">
+              Эта модель подходит людям с цветотипом: <strong>{product.colorType}</strong>
+            </p>
+          )}
+
+          {product.material && (
+            <p className="product-material">
+              Состав: <strong>{product.material}</strong>
+            </p>
+          )}
+
+          <button className="btn-add-to-cart" onClick={handleAddToCart}>
+            Добавить в корзину
+          </button>
+        </div>
+      </div>
+    </main>
+    )
+}
+
+export default ProductInformation;
+
+/**
+<main className="product-card">
             <Link className="go-back" to="/">
                 <img src="https://img.icons8.com/?size=100&id=39776&format=png&color=1A1A1A" alt="кнопка вернуться назад"/>
             </Link>
@@ -105,7 +170,5 @@ function ProductInformation() {
                 </div>
             </div>
     </main>
-    )
-}
 
-export default ProductInformation;
+ */

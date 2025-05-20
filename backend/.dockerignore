@@ -1,5 +1,1 @@
-storage/
-node_modules/
-.git/
-vendor/
-*.log
+app/public/storage

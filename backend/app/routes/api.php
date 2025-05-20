@@ -36,6 +36,7 @@ Route::prefix('customer')->group(function () {
 Route::post('register', [App\Http\Controllers\CustomerController::class, 'register']);
 Route::post('login', [App\Http\Controllers\CustomerController::class, 'login']);
 Route::get('showProfile', [App\Http\Controllers\CustomerController::class, 'showProfile']);
+Route::post('color-type', [App\Http\Controllers\CustomerController::class, 'updateColorType']);
 });
 
 

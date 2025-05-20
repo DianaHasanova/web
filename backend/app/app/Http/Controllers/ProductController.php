@@ -42,27 +42,74 @@ class ProductController extends Controller
         ]);
     }
 
+
+
+
+    // попробовать в докере права доступа открыть перед тем как пересобрать образы может тогда заработает с сохранением в voluems
      // Метод для загрузки фото
-     public function uploadImageProduct(Request $request)
-    {
-        $data = $request->validate([
-            'image' => 'required|image|max:5120', // максимум 5 МБ
-        ]);
+    public function uploadImageProductForDocker(Request $request)
+{
+    $data = $request->validate([
+        'image' => 'required|image|max:5120', // максимум 5 МБ
+    ]);
 
-        $path = $request->file('image')->store('images', 'public');
-
-        // Явно задаём базовый адрес вашего бэкенда с портом
-        $baseUrl = 'http://localhost:8000';
-
-        // Формируем полный URL к файлу
-        $fullUrl = $baseUrl . Storage::url($path);
-
-        return response()->json(['url' => $fullUrl], 201);
+    if (!$request->hasFile('image')) {
+        return response()->json(['error' => 'Файл не загружен'], 400);
     }
 
+    $file = $request->file('image');
+
+    if (!$file->isValid()) {
+        return response()->json(['error' => 'Ошибка загрузки файла'], 400);
+    }
+
+    $path = $file->store('images', 'public');
+
+    if (!$path) {
+        return response()->json(['error' => 'Не удалось сохранить файл'], 500);
+    }
+
+    $baseUrl = 'http://localhost';
+    $fullUrl = $baseUrl . Storage::url($path);
+
+    return response()->json(['url' => $fullUrl], 201);
+}
+
+
+public function uploadImageProduct(Request $request)
+{
+    $data = $request->validate([
+        'image' => 'required|image|max:5120',
+    ]);
+
+    if (!$request->hasFile('image')) {
+        return response()->json(['error' => 'Файл не загружен'], 400);
+    }
+
+    $file = $request->file('image');
+
+    if (!$file->isValid()) {
+        return response()->json(['error' => 'Ошибка загрузки файла'], 400);
+    }
+
+    $destinationPath = 'images';
+
+    $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+
+    try {
+        $file->move($destinationPath, $filename);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Не удалось сохранить файл: ' . $e->getMessage()], 500);
+    }
+
+    $baseUrl = 'http://localhost';
+    $fullUrl = $baseUrl . '/images/' . $filename; // Измените этот путь, если необходимо
+
+    return response()->json(['url' => $fullUrl], 201);
+}
 
      // Метод для создания нового товара
-     public function addProduct(Request $request)
+     public function addProduct1(Request $request)
      {
          $data = $request->validate([
              'name' => 'required|string|max:255',
@@ -75,9 +122,30 @@ class ProductController extends Controller
              'image' => $data['image'],
              'price' => $data['price'], //'color' => $data['color'],
              'rating' => 0,
-             'seller_id' => 0,
+             'seller_id' => 1,
          ]);
 
          return response()->json(['product' => $product], 201);
      }
+
+    public function addProduct(Request $request)
+{
+    try {
+        $product = Product::create([
+            'name' => $request->input('name'),
+            'price' => $request->input('price'),
+            'image' => $request->input('image'),
+            'color_type' => $request->input('colorType'),
+            'rating' => 1,
+            'seller_id' => 1,
+        ]);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Ошибка при сохранении товара: ' . $e->getMessage()], 500);
+    }
+
+
+    return response()->json(['product' => $product], 201);
+}
+
+
 }

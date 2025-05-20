@@ -10,6 +10,7 @@ import Cart from './components/Cart';
 import CatalogPage from './components/CatalogPage';
 import NotFound from './components/NotFound'; 
 import AddAdminsProduct from './components/AddAdminsProduct';
+import ColorTypeTest from './components/ColorTypeTest';
 
 function App() {
   return (

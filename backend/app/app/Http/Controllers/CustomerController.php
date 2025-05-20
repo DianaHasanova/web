@@ -57,7 +57,7 @@ public function login(Request $request)
 
 public function showProfile(Request $request)
 {
-$token = $request->header('Authorization');
+            $token = $request->header('Authorization');
             $token = str_replace('Bearer ', '', $token);
 
             if (!JWTAuth::parseToken()->check()) {
@@ -75,8 +75,42 @@ $token = $request->header('Authorization');
                 'name' => $user->name,
                 'email' => $user->email,
                 'image' => $user->image,
+                'color_type' => $user->color_type,
                 // ... другие поля пользователя ...
             ]);
 }
 
+public function updateColorType(Request $request)
+{
+    $token = $request->header('Authorization');
+    $token = str_replace('Bearer ', '', $token);
+
+    if (!JWTAuth::parseToken()->check()) {
+        return response()->json(['error' => 'Не авторизован'], 401);
+    }
+
+    $userId = JWTAuth::parseToken()->getPayload()->get('sub');
+    $user = Customer::find($userId);
+
+    if (!$user) {
+        return response()->json(['error' => 'Пользователь не найден'], 404);
+    }
+
+    $data = $request->validate([
+        'colorType' => 'required', // |integer или string, если нужно
+    ]);
+
+    $user->color_type = $data['colorType'];
+
+    try {
+        $user->save();
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Ошибка при обновлении цветотипа: ' . $e->getMessage()], 500);
+    }
+
+    return response()->json([
+        'message' => 'Цветотип успешно обновлен',
+        'colorType' => $user->color_type,
+    ]);
+}
 }

@@ -43,5 +43,12 @@ COPY . /var/www
 RUN chown -R www-data:www-data /var/www/
 USER www-data
 
+#при следующем сборке включить  !!! для работы скачивания картинок товара
+# Установка прав для Laravel
+#RUN chown -R www-data:www-data /var/www/my-laravel-project/storage /var/www/my-laravel-project/bootstrap/cache
+#RUN chmod -R 775 /var/www/my-laravel-project/storage /var/www/my-laravel-project/bootstrap/cache
+#RUN chown -R www-data:www-data /var/www/my-laravel-project/storage/app/public/images
+#RUN chmod -R 775 /var/www/my-laravel-project/storage/app/public/images
+
 EXPOSE 9000
 CMD ["php-fpm"]
