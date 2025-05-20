@@ -1,3 +1,149 @@
+import React, { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import api from '../api';
+
+function ProductInformation() {
+  const { id } = useParams();
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [selectedSize, setSelectedSize] = useState('');
+
+  useEffect(() => {
+    api.get(`/catalog/${id}`)
+      .then(response => {
+        setProduct(response.data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Ошибка при загрузке товара:', error);
+        setLoading(false);
+      });
+  }, [id]);
+
+  const token = localStorage.getItem('token');
+
+  const addToLocalCart = (productToAdd, size) => {
+    try {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const existingItemIndex = cart.findIndex(
+        item => item.id === productToAdd.id && item.size === size
+      );
+
+      if (existingItemIndex >= 0) {
+        cart[existingItemIndex].quantity += 1;
+      } else {
+        cart.push({ ...productToAdd, size, quantity: 1 });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert('Товар добавлен в корзину!');
+    } catch (err) {
+      console.error('Ошибка при добавлении в локальную корзину:', err);
+      alert('Ошибка при добавлении товара в корзину.');
+    }
+  };
+
+  const handleAddToCart = async () => {
+    if (!product) return;
+
+    if (!selectedSize) {
+      alert('Пожалуйста, выберите размер');
+      return;
+    }
+
+    if (!token) {
+      addToLocalCart(product, selectedSize);
+    } else {
+      try {
+        const headers = { Authorization: `Bearer ${token}` };
+        const response = await api.post(
+          `/cart/add/${product.id}`,
+          { size: selectedSize },
+          { headers }
+        );
+
+        if (response.status === 200 || response.status === 201) {
+          alert('Товар добавлен в корзину!');
+        } else {
+          console.error('Ошибка добавления товара в корзину:', response);
+          alert('Ошибка добавления товара в корзину. Попробуйте позже.');
+        }
+      } catch (error) {
+        console.error('Ошибка добавления товара в корзину:', error);
+        alert('Ошибка добавления товара в корзину. Попробуйте позже.');
+      }
+    }
+  };
+
+  if (loading) {
+    return <main className="productinfo-main">Загрузка товара...</main>;
+  }
+
+  if (!product) {
+    return <main className="productinfo-main">Товар не найден</main>;
+  }
+
+  // Пример размеров, если в данных нет — можно заменить на product.sizes
+  const sizes = product.sizes || ['36', '38', '40', '42', '44', '46', '48', '50', '52'];
+
+  return (
+    <main className="productinfo-main">
+      <Link to="/" className="productinfo-back-link">
+        ← Вернуться в каталог
+      </Link>
+
+      <div className="productinfo-flexbox">
+        <div className="productinfo-imgwrap">
+            <img className="productinfo-img" src={product.image} alt={`фото товара ${product.name}`}/>
+        </div>
+
+        <div className="productinfo-details">
+          <h1 className="productinfo-title">{product.name}</h1>
+
+          <div className="productinfo-sizes-section">
+            <div className="productinfo-size-table-link">Таблица размеров &gt;</div>
+            
+            <div className="productinfo-sizes-grid">
+              {sizes.map(size => (
+                <button
+                  key={size}
+                  className={`productinfo-size-button ${selectedSize === size ? 'selected' : ''}`}
+                  onClick={() => setSelectedSize(size)}>
+                  {size}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <p className="productinfo-price">
+            Цена: {product.price ? `${product.price} ₽` : 'Цена не указана'}
+          </p>
+
+          {product.colorType && product.colorType.trim() !== '' && (
+            <p className="productinfo-colortype">
+              Эта модель подходит людям с цветотипом: <strong>{product.colorType}</strong>
+            </p>
+          )}
+
+          {product.material && (
+            <p className="productinfo-material">
+              Состав: <strong>{product.material}</strong>
+            </p>
+          )}
+
+          <button className="btn-add-product" onClick={handleAddToCart}>
+            Добавить в корзину
+          </button>
+        </div>
+      </div>
+    </main>
+  );
+}
+
+export default ProductInformation;
+
+
+/**
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 //import products from '../product.json'; 
@@ -46,69 +192,6 @@ function ProductInformation() {
     const sizes = product.sizes || ['40', '42', '44', '46', '48'];
 
     return (
-        <main className="product-main">
-      <Link to="/catalog" className="back-link">
-        ← Вернуться в каталог
-      </Link>
-
-      <div className="product-container">
-        <div className="product-image">
-          <img
-            src={product.image || 'https://via.placeholder.com/400x500?text=Нет+изображения'}
-            alt={product.name}
-          />
-        </div>
-
-        <div className="product-info">
-          <h1 className="product-name">{product.name}</h1>
-
-          <div className="size-table-label">Таблица размеров</div>
-
-          <div className="size-selector">
-            <label htmlFor="size-select" className="size-label">Размер:</label>
-            <select
-              id="size-select"
-              value={selectedSize}
-              onChange={e => setSelectedSize(e.target.value)}
-              className="size-select"
-            >
-              <option value="">Выберите размер</option>
-              {sizes.map(size => (
-                <option key={size} value={size}>
-                  {size}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <p className="product-price">
-            Цена: {product.price ? `${product.price} ₽` : 'Цена не указана'}
-          </p>
-
-          {product.colorType && (
-            <p className="product-colortype">
-              Эта модель подходит людям с цветотипом: <strong>{product.colorType}</strong>
-            </p>
-          )}
-
-          {product.material && (
-            <p className="product-material">
-              Состав: <strong>{product.material}</strong>
-            </p>
-          )}
-
-          <button className="btn-add-to-cart" onClick={handleAddToCart}>
-            Добавить в корзину
-          </button>
-        </div>
-      </div>
-    </main>
-    )
-}
-
-export default ProductInformation;
-
-/**
 <main className="product-card">
             <Link className="go-back" to="/">
                 <img src="https://img.icons8.com/?size=100&id=39776&format=png&color=1A1A1A" alt="кнопка вернуться назад"/>
@@ -170,5 +253,8 @@ export default ProductInformation;
                 </div>
             </div>
     </main>
+    )
+}
 
+export default ProductInformation;
  */
