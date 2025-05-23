@@ -53,6 +53,9 @@ function CartCardProduct({ cartItem, onAddItem, onRemoveItem }) {
                     <div className='card-cart-item'>
                         {cartItem.product.name}
                     </div>
+                    <div className='card-cart-item'>
+                         {cartItem.size?'Размер:'+cartItem.size:''}
+                    </div>
                     <div className='card-cart-item row'>
                         <button className='quantity' onClick={subtractProduct}>
                             <img src="https://img.icons8.com/?size=100&id=85458&format=png&color=FFFFFF" alt = 'уменьшить кол-во товара' />

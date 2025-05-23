@@ -27,7 +27,7 @@ function Header(){
                 <nav className="menu header-item">
                     <ul className = "menu-list row items-right">
                         <li className="menu-list-item ">
-                            <Link to="/heart">
+                            <Link to="/add-product">
                                 <img className="header-menu-img" src="https://img.icons8.com/?size=100&id=95852&format=png&color=FFFFFF"/>
                             </Link>
                         </li>
@@ -37,7 +37,7 @@ function Header(){
                             </Link>
                         </li>
                         <li className="menu-list-item ">
-                            <Link to="/">
+                            <Link to="/recommendations">
                                 <img className="header-menu-img" src="https://img.icons8.com/?size=100&id=16076&format=png&color=FFFFFF"/>
                             </Link>
                         </li>
@@ -55,6 +55,8 @@ function Header(){
 }
 
 export default Header;
+
+
 
 /*
 <header>

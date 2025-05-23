@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Orders;
 use Illuminate\Http\Request;
 
 
@@ -38,6 +39,50 @@ class CartController extends Controller
             }
 
             $cartData = $cart->map(function ($item) {
+                return [
+                    'id' => $item->id,
+                    'user_id' => $item->user_id,
+                    'product_id' => $item->product_id,
+                    'size' => $item->size,
+                    'quantity' => $item->quantity,
+                    'product' => $item->product ? [
+                        'name' => $item->product->name,
+                        'price' => $item->product->price,
+                        'image' => $item->product->image,
+                    ] : null,
+                ];
+            })->toArray();
+
+
+            return response()->json($cartData, 200);
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Ошибка при получении данных корзины: ' . $e->getMessage()], 500);
+        }
+    }
+
+    public function showCart2testOrders(Request $request) {
+        try {
+            $token = $request->header('Authorization');
+            $token = str_replace('Bearer ', '', $token);
+
+            if (!JWTAuth::parseToken()->check()) {
+                return response()->json(['error' => 'Не авторизован'], 401); // доделать логику, когда пользователь не авторизован
+            }
+
+            $userId = JWTAuth::parseToken()->getPayload()->get('sub');
+
+            //$user = Customer::find($userId);
+
+            $orders = Orders::with('product')
+                        ->where('user_id', $userId)
+                        ->get();
+
+            if ($orders->isEmpty()) {
+                return response()->json([], 200);
+            }
+
+            $cartData = $orders->map(function ($item) {
                 return [
                     'id' => $item->id,
                     'user_id' => $item->user_id,

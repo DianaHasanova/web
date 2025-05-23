@@ -45,3 +45,12 @@ Route::prefix('admin')->group(function () {
     Route::post('/add-product', [App\Http\Controllers\ProductController::class, 'addProduct']);
     Route::post('/upload-image', [App\Http\Controllers\ProductController::class, 'uploadImageProduct']);
 });
+
+Route::prefix('recommendation')->group(function () {
+    Route::get('/user-purchases',[App\Http\Controllers\RecommendationController::class,'showUserPurchases']);
+    Route::get('/cart',[App\Http\Controllers\RecommendationController::class,'showCart']);
+
+});
+
+Route::get('/available-products',[App\Http\Controllers\RecommendationController::class,'getAvailableProducts']);
+Route::get('/test-recommendations', [App\Http\Controllers\RecommendationController::class, 'recommendationsForUser']);

@@ -10,7 +10,8 @@ import Cart from './components/Cart';
 import CatalogPage from './components/CatalogPage';
 import NotFound from './components/NotFound'; 
 import AddAdminsProduct from './components/AddAdminsProduct';
-import ColorTypeTest from './components/ColorTypeTest';
+import Recommendations from './components/Recommendations';
+import UserInteractionsTest from './components/UserInteractionsTest';
 
 function App() {
   return (
@@ -23,8 +24,9 @@ function App() {
           <Route path='/registration' element={<AuthRoute />} />
           <Route path="/product/:id" element={<ProductInformation />} />
           <Route path="/catalog/:slug" element={<CatalogPage />} />
+          <Route path="/recommendations" element={<UserInteractionsTest />} /> 
+          <Route path='/add-product' element={<AddAdminsProduct/>} />
           <Route path="/cart" element={<Cart />} /> 
-          <Route path='/heart' element={<AddAdminsProduct/>} />
         </Route>
         <Route path="*" element={<NotFound />} /> 
       </Routes>
@@ -34,4 +36,4 @@ function App() {
   );
 }
 
-export default App; //<Route path="/catalog/:slug" element={<CatalogPage />} />
+export default App; //<Route path="/catalog/:slug" element={<CatalogPage />} />    <Route path="/cart" element={<Cart />} /> 

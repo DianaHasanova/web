@@ -16,7 +16,7 @@ class Product extends Model
      */
     protected $table = 'product';
 
-    protected $fillable = ['name', 'image', 'price', 'seller_id', 'rating', 'color_type'];
+    protected $fillable = ['name', 'image', 'price', 'seller_id', 'rating', 'color_type','style_id' ];
 
     public function seller()
     {
@@ -27,6 +27,18 @@ class Product extends Model
     {
         return $this->belongsToMany(Category::class, 'product_categories');
     }
+
+    public function styles()
+{
+    return $this->belongsToMany(Styles::class, 'product_style', 'product_id', 'style_id');
+}
+
+    /*
+    public function styles()
+    {
+        return $this->belongsTo(Styles::class, 'style_id');
+    }
+        */
 
     public function reviews()
     {

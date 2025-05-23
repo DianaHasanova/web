@@ -14,7 +14,7 @@ function Home() {
         .then(response => setProducts(response.data))
         .catch(error => console.error('Ошибка:', error));
     }, []);
-    
+
     return (
         <>
             <main>

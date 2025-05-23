@@ -62,13 +62,13 @@ function ColorTypeTest() {
       } else {
         const winner = Number(Object.entries(scores).find(([_, score]) => score === Math.max(...Object.values(scores)))[0]);
         setResult(winner);
-        sendResultToServer(colorTypeMap[winner]); 
+        sendResultToServer(winner); //sendResultToServer(colorTypeMap[winner]);
       }
     } else if (currentIndex === 4) {
       const selectedOption = questions[4].options.find(o => o.text === answers[4]);
       if (selectedOption) {
         setResult(selectedOption.types[0]);
-        sendResultToServer(colorTypeMap[selectedOption.types[0]]);
+        sendResultToServer(selectedOption.types[0]);//sendResultToServer(colorTypeMap[selectedOption.types[0]]);
       }
     } else {
       setCurrentIndex(currentIndex + 1);

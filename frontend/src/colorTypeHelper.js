@@ -1,9 +1,16 @@
 import Color from 'color';
 
+export const colorTypeMap = {
+  0: "Весна",
+  1: "Лето",
+  2: "Осень",
+  3: "Зима"
+};
+
 // Массив с правилами цветотипов по вашей таблице
 const COLOR_TYPES = [
   {
-    name: "Весна",
+    name: 0,
     hue: [
       { min: 0, max: 60 },
       { min: 300, max: 360 }
@@ -12,7 +19,7 @@ const COLOR_TYPES = [
     v: { min: 40, max: 100 }
   },
   {
-    name: "Лето",
+    name: 1,
     hue: [
       { min: 180, max: 270 }
     ],
@@ -20,7 +27,7 @@ const COLOR_TYPES = [
     v: { min: 40, max: 90 }
   },
   {
-    name: "Осень",
+    name: 2,
     hue: [
       { min: 30, max: 90 },
       { min: 210, max: 240 }
@@ -29,7 +36,7 @@ const COLOR_TYPES = [
     v: { min: 30, max: 80 }
   },
   {
-    name: "Зима",
+    name: 3,
     hue: [
       { min: 150, max: 180 },
       { min: 270, max: 330 }
