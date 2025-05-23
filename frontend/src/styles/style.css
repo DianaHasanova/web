@@ -929,6 +929,7 @@ footer .menu-list{
     margin-top: 10px;
   }
   
+  /*вроде radio для профиля*/
   .productinfo-size-button {
     width: 50px;
     height: 50px;
@@ -962,5 +963,15 @@ footer .menu-list{
   .productinfo-colortype,
   .productinfo-material {
     margin-bottom: 15px;
+  }
+  
+  /*при добавлении товара стилизую два появляющихся раздела для выбора стиля и категории*/
+  /* Стили для чекбокса — просто розовый акцент */
+input[type="checkbox"] {
+    accent-color: var(--secondary-color); /* розовый цвет */
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    margin-right: 8px;
   }
   

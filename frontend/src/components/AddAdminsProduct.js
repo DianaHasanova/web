@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import api from '../api';
 import { useNavigate } from 'react-router-dom';
 import { getColorType } from '../colorTypeHelper.js';
+import AddStyleProduct from '../components/AddStyleProduct.js'
+import AddCategoryProduct from '../components/AddCategoryProduct.js'
 
 function AddAdminsProduct() {
   const [formData, setFormData] = useState({
@@ -12,6 +14,7 @@ function AddAdminsProduct() {
   });
   const [imageUrl, setImageUrl] = useState('');
   const [uploading, setUploading] = useState(false);
+  const [createdProductId, setCreatedProductId] = useState(null); //
 
   const navigate = useNavigate();
 
@@ -20,6 +23,12 @@ function AddAdminsProduct() {
       ...prev,
       [e.target.name]: e.target.value,
     }));
+  };
+
+  const handleFinish = () => {
+    setCreatedProductId(null);
+    setFormData({ name: '', price: '', color: '' });
+    setImageUrl('');
   };
 
   const handleFileChange = async (e) => {
@@ -95,10 +104,17 @@ function AddAdminsProduct() {
         colorType,
       };
 
-      await api.post('/admin/add-product', payload);
-      alert('Товар успешно добавлен');
-      setFormData({ name: '', price: '', color: '' });
-      setImageUrl('');
+      await api.post('/admin/add-product', payload)
+      .then(response => 
+        {
+          alert('Товар успешно добавлен');
+          setCreatedProductId(response.data.product.id);
+          console.log(response.data.product.id);
+          //<AddStyleProduct key={product.id} productId={response.product.id}/>
+          //setFormData({ name: '', price: '', color: '' });
+          //setImageUrl('');
+        })
+
     } catch (error) {
       alert(error);
       console.error(error);
@@ -148,7 +164,7 @@ function AddAdminsProduct() {
       </div>
       <div className="form-item">
         <button type="button" className="btn-pick-color" onClick={handlePickColor}>
-          Взять цвет с экрана (пипетка)
+          Взять цвет товара (пипетка)
         </button>
       </div>
       {formData.color && (
@@ -165,86 +181,18 @@ function AddAdminsProduct() {
         Добавить товар
       </button>
     </form>
+
+    {createdProductId && <AddStyleProduct productId={createdProductId} />}
+    {createdProductId && <AddCategoryProduct productId={createdProductId} />}
+    {createdProductId && 
+    <button  className="btn-add-product" style={{'marginTop': '30px', 'background': 'white', 'color':'#b8494d'}} onClick={handleFinish}>Завершить оформление </button>
+    }
+    
   </div>
+  
 </main>
     
   );
 }
 
 export default AddAdminsProduct;
-
-/**
-  <main>
-      <h2>Добавить товар (админ)</h2>
-      <form onSubmit={handleSubmit} style={{ maxWidth: 400 }}>
-        <div>
-          <label>Название товара</label>
-          <input
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            type="text"
-            required
-          />
-        </div>
-
-        <div>
-          <label>Цена</label>
-          <input
-            name="price"
-            value={formData.price}
-            onChange={handleChange}
-            type="number"
-            step="0.01"
-            required
-          />
-        </div>
-
-        <div>
-          <label>Фото товара</label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-            required={!imageUrl}
-          />
-          {uploading && <p>Загрузка изображения...</p>}
-          {imageUrl && (
-            <div style={{ marginTop: 10 }}>
-              <img src={imageUrl} alt="Товар" style={{ maxWidth: '100%' }} />
-            </div>
-          )}
-        </div>
-
-        <div style={{ marginTop: 20 }}>
-          <button type="button" onClick={handlePickColor}>
-            Взять цвет с экрана (пипетка)
-          </button>
-        </div>
-
-        {formData.color && (
-          <div style={{ marginTop: 10 }}>
-            <p>
-              Выбранный цвет:{' '}
-              <span
-                style={{
-                  display: 'inline-block',
-                  width: 30,
-                  height: 30,
-                  backgroundColor: formData.color,
-                  border: '1px solid #000',
-                  verticalAlign: 'middle',
-                  marginLeft: 10,
-                }}
-              ></span>{' '}
-              {formData.color}
-            </p>
-          </div>
-        )}
-
-        <button type="submit" disabled={uploading} style={{ marginTop: 20 }}>
-          Добавить товар
-        </button>
-      </form>
-    </main>
- */

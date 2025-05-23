@@ -54,3 +54,9 @@ Route::prefix('recommendation')->group(function () {
 
 Route::get('/available-products',[App\Http\Controllers\RecommendationController::class,'getAvailableProducts']);
 Route::get('/test-recommendations', [App\Http\Controllers\RecommendationController::class, 'recommendationsForUser']);
+
+Route::get('/styles', [App\Http\Controllers\ProductController::class, 'getStyles']);
+Route::post('/admin/product-style', [App\Http\Controllers\ProductController::class, 'addProductStyles']);
+
+Route::get('/categories', [App\Http\Controllers\ProductController::class, 'getCategories']);
+Route::post('/admin/product-categories', [App\Http\Controllers\ProductController::class, 'addProductCategories']);
