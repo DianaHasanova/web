@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { getColorType } from '../colorTypeHelper.js';
 import AddStyleProduct from '../components/AddStyleProduct.js'
 import AddCategoryProduct from '../components/AddCategoryProduct.js'
+import AddSizeQuantityProduct from '../components/AddSizeQuantityProduct.js'
+
 
 function AddAdminsProduct() {
   const [formData, setFormData] = useState({
@@ -184,6 +186,7 @@ function AddAdminsProduct() {
 
     {createdProductId && <AddStyleProduct productId={createdProductId} />}
     {createdProductId && <AddCategoryProduct productId={createdProductId} />}
+    {createdProductId && <AddSizeQuantityProduct productId={createdProductId} />}
     {createdProductId && 
     <button  className="btn-add-product" style={{'marginTop': '30px', 'background': 'white', 'color':'#b8494d'}} onClick={handleFinish}>Завершить оформление </button>
     }

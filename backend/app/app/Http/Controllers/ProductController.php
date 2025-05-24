@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Styles;
+use App\Models\ProductInventory;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
@@ -229,6 +230,39 @@ public function addProductCategories(Request $request)
 
     return response()->json(['message' => 'Категории успешно добавлены']);
 }
+
+
+
+
+
+public function addProductInventory(Request $request)
+{
+    $data = $request->validate([
+        'product_id' => 'required|exists:product,id',
+        'sizes' => 'required|array',
+        'stock_quantity' => 'required|integer|min:1',
+    ]);
+
+    $inventoryData = [];
+    foreach ($data['sizes'] as $size) {
+        $inventoryData[] = [
+            'product_id' => $data['product_id'],
+            'size' => $size,
+            'stock_quantity' => $data['stock_quantity'],
+        ];
+    }
+
+    try {
+        ProductInventory::insert($inventoryData);
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => 'Ошибка при сохранении размеров: ' . $e->getMessage()
+        ], 500);
+    }
+
+    return response()->json(['message' => 'Размеры успешно добавлены']);
+}
+
 
 
 }

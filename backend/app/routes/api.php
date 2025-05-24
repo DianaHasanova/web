@@ -60,3 +60,5 @@ Route::post('/admin/product-style', [App\Http\Controllers\ProductController::cla
 
 Route::get('/categories', [App\Http\Controllers\ProductController::class, 'getCategories']);
 Route::post('/admin/product-categories', [App\Http\Controllers\ProductController::class, 'addProductCategories']);
+
+Route::post('/admin/product-inventory', [App\Http\Controllers\ProductController::class, 'addProductInventory']);
